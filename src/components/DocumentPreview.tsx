@@ -26,15 +26,42 @@ const handleDownloadPDF = async () => {
     const element = document.getElementById('document-content');
     if (!element) return;
 
+    if (document.fonts && document.fonts.ready) {
+      await document.fonts.ready;
+    }
+
+    const originalWidth = element.style.width;
+    const originalBackground = element.style.backgroundColor;
+
+    // Ukuran A4 dalam px pada 96 DPI = 794 x 1123
+    const a4WidthPx = 794;
+    const a4HeightPx = 1123;
+
+    // Kunci ukuran & background
+    element.style.width = `${a4WidthPx}px`;
+    element.style.backgroundColor = "#ffffff";
+
     const opt = {
-      margin: 10,
+      margin: 0,
       filename: `${documentData.title || 'dokumen'}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      image: { type: 'jpeg', quality: 1 }, // kualitas full
+      html2canvas: {
+        scale: 3, // triple resolusi → tajam
+        useCORS: true,
+        backgroundColor: "#ffffff"
+      },
+      jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait'
+      }
     };
 
     await html2pdf().set(opt).from(element).save();
+
+    element.style.width = originalWidth;
+    element.style.backgroundColor = originalBackground;
+
   } catch (error) {
     console.error('Error generating PDF:', error);
     alert('Terjadi kesalahan saat membuat PDF');
@@ -285,7 +312,8 @@ const handleDownloadPDF = async () => {
 
             {/* Footer for Invoice */}
             {documentData.template.type === 'invoice' && (
-              <div className="mt-12 pt-6 border-t border-slate-300">
+              <div  className="mt-12 pt-6 border-t border-slate-300"
+  style={{ display: 'none' }} >
                 <p className="text-center text-slate-600 italic text-base">
                   Terima kasih atas kepercayaan Anda
                 </p>
