@@ -32,6 +32,7 @@ const handleDownloadPDF = async () => {
 
     const originalWidth = element.style.width;
     const originalBackground = element.style.backgroundColor;
+    const originalPadding = element.style.padding;
 
     // Ukuran A4 dalam px pada 96 DPI = 794 x 1123
     const a4WidthPx = 794;
@@ -40,20 +41,29 @@ const handleDownloadPDF = async () => {
     // Kunci ukuran & background
     element.style.width = `${a4WidthPx}px`;
     element.style.backgroundColor = "#ffffff";
+    element.style.padding = "40px"; // Consistent padding for PDF
 
     const opt = {
-      margin: 0,
+      margin: [20, 15, 20, 15], // top, right, bottom, left margins in mm
       filename: `${documentData.title || 'dokumen'}.pdf`,
       image: { type: 'jpeg', quality: 1 }, // kualitas full
       html2canvas: {
         scale: 3, // triple resolusi → tajam
         useCORS: true,
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
+        scrollX: 0,
+        scrollY: 0
       },
       jsPDF: {
         unit: 'mm',
         format: 'a4',
-        orientation: 'portrait'
+        orientation: 'portrait',
+        compress: true
+      },
+      pagebreak: {
+        mode: ['avoid-all', 'css', 'legacy'],
+        before: '.page-break-before',
+        after: '.page-break-after'
       }
     };
 
@@ -61,6 +71,7 @@ const handleDownloadPDF = async () => {
 
     element.style.width = originalWidth;
     element.style.backgroundColor = originalBackground;
+    element.style.padding = originalPadding;
 
   } catch (error) {
     console.error('Error generating PDF:', error);
