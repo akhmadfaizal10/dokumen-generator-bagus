@@ -239,19 +239,19 @@ const handleDownloadPDF = async () => {
       <div className="lg:col-span-3">
         <div className="bg-white rounded-xl shadow-lg border">
           {/* A4 Paper Simulation */}
-<div id="document-content" className="p-16 bg-white" style={{ minHeight: '297mm', width: '210mm', margin: '0 auto' }}>
-  id="document-content" 
-  className="bg-white"
-  style={{
-    padding: '60px 50px',
-    minHeight: '297mm', // A4 height
-    width: '210mm', // A4 width
-    maxWidth: '100%',
-    margin: '0 auto',
-    boxSizing: 'border-box',
-    pageBreakInside: 'avoid'
-  }}
->
+          <div 
+            id="document-content" 
+            className="bg-white"
+            style={{
+              padding: '60px 50px',
+              minHeight: '297mm', // A4 height
+              width: '210mm', // A4 width
+              maxWidth: '100%',
+              margin: '0 auto',
+              boxSizing: 'border-box',
+              pageBreakInside: 'avoid'
+            }}
+          >
             {/* Letterhead */}
             <div className="no-break">
               {renderLetterhead()}
@@ -292,14 +292,6 @@ const handleDownloadPDF = async () => {
             </div>
 
             {/* Document Content */}
-            <div className="mb-10 no-break">
-              <div 
-                className="text-slate-800 leading-relaxed whitespace-pre-wrap text-justify text-base" 
-                style={{ 
-                  lineHeight: '1.7',
-                  pageBreakInside: 'avoid',
-                  orphans: 3,
-                  widows: 3
             <div className="mb-12" style={{ pageBreakInside: 'avoid' }}>
               <div className="text-slate-800 leading-relaxed whitespace-pre-wrap text-justify text-base" style={{ lineHeight: '1.8', pageBreakInside: 'auto' }}>
                 {documentData.content}
@@ -346,6 +338,7 @@ const handleDownloadPDF = async () => {
             {/* Footer for Invoice */}
             {documentData.template.type === 'invoice' && (
               <div className="mt-12 pt-6 border-t border-slate-300" style={{ pageBreakInside: 'avoid' }}>
+                <p className="text-center text-slate-600 text-sm">
                   Terima kasih atas kepercayaan Anda
                 </p>
               </div>
