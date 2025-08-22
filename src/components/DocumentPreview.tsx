@@ -239,12 +239,26 @@ const handleDownloadPDF = async () => {
       <div className="lg:col-span-3">
         <div className="bg-white rounded-xl shadow-lg border">
           {/* A4 Paper Simulation */}
-<div id="document-content" className="p-16 bg-white">
+<div id="document-content" className="p-16 bg-white" style={{ minHeight: '297mm', width: '210mm', margin: '0 auto' }}>
+  id="document-content" 
+  className="bg-white"
+  style={{
+    padding: '60px 50px',
+    minHeight: '297mm', // A4 height
+    width: '210mm', // A4 width
+    maxWidth: '100%',
+    margin: '0 auto',
+    boxSizing: 'border-box',
+    pageBreakInside: 'avoid'
+  }}
+>
             {/* Letterhead */}
-            {renderLetterhead()}
+            <div className="no-break">
+              {renderLetterhead()}
+            </div>
 
             {/* Document Header */}
-            <div className="mb-10">
+            <div className="mb-8 page-break-after">
               <div className="text-right mb-8">
                 <p className="text-slate-700 text-base">{formatDate(documentData.date)}</p>
               </div>
@@ -272,21 +286,29 @@ const handleDownloadPDF = async () => {
                 </div>
               )}
 
-              <h1 className="text-3xl font-bold text-slate-800 mb-8 text-center">
+              <h1 className="text-2xl font-bold text-slate-800 mb-6 text-center">
                 {documentData.title}
               </h1>
             </div>
 
             {/* Document Content */}
-            <div className="mb-12">
-              <div className="text-slate-800 leading-relaxed whitespace-pre-wrap text-justify text-base" style={{ lineHeight: '1.8' }}>
+            <div className="mb-10 no-break">
+              <div 
+                className="text-slate-800 leading-relaxed whitespace-pre-wrap text-justify text-base" 
+                style={{ 
+                  lineHeight: '1.7',
+                  pageBreakInside: 'avoid',
+                  orphans: 3,
+                  widows: 3
+            <div className="mb-12" style={{ pageBreakInside: 'avoid' }}>
+              <div className="text-slate-800 leading-relaxed whitespace-pre-wrap text-justify text-base" style={{ lineHeight: '1.8', pageBreakInside: 'auto' }}>
                 {documentData.content}
               </div>
             </div>
 
             {/* Signature Section */}
             {documentData.signature && (documentData.signature.name || documentData.signature.position) && (
-              <div className="mt-16 flex justify-end">
+              <div className="mt-16 flex justify-end page-break-before" style={{ pageBreakInside: 'avoid' }}>
                 <div className="text-center">
                   <p className="text-slate-800 text-base mb-1">Hormat kami,</p>
                   
@@ -301,7 +323,7 @@ const handleDownloadPDF = async () => {
                   )}
                   
                   {!documentData.signature.signatureImage && (
-                    <div className="my-8">
+                    <div className="my-6">
                       <div className="w-32 h-16 mx-auto"></div>
                     </div>
                   )}
@@ -323,9 +345,7 @@ const handleDownloadPDF = async () => {
 
             {/* Footer for Invoice */}
             {documentData.template.type === 'invoice' && (
-              <div  className="mt-12 pt-6 border-t border-slate-300"
-  style={{ display: 'none' }} >
-                <p className="text-center text-slate-600 italic text-base">
+              <div className="mt-12 pt-6 border-t border-slate-300" style={{ pageBreakInside: 'avoid' }}>
                   Terima kasih atas kepercayaan Anda
                 </p>
               </div>
