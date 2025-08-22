@@ -286,6 +286,17 @@ const handleDownloadPDF = async () => {
                 </div>
               )}
 
+              {documentData.template.type === 'invoice' && documentData.subject && (
+                <div className="mb-8">
+                  <p className="text-slate-800 text-base"><strong>Invoice No:</strong> {documentData.subject}</p>
+                </div>
+              )}
+
+              {documentData.template.type === 'report' && documentData.subject && (
+                <div className="mb-8">
+                  <p className="text-slate-800 text-base"><strong>Periode:</strong> {documentData.subject}</p>
+                </div>
+              )}
               <h1 className="text-2xl font-bold text-slate-800 mb-6 text-center">
                 {documentData.title}
               </h1>

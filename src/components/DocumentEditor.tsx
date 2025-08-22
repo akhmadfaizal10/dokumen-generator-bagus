@@ -115,6 +115,74 @@ function DocumentEditor({ documentData, onDocumentChange, template }: DocumentEd
               </div>
             )}
 
+            {template.type === 'invoice' && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    <User className="w-4 h-4 inline mr-1" />
+                    Nama Klien/Pelanggan
+                  </label>
+                  <input
+                    type="text"
+                    value={documentData.recipient || ''}
+                    onChange={(e) => handleFieldChange('recipient', e.target.value)}
+                    placeholder="Nama perusahaan atau individu"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">Contoh: PT. ABC Indonesia</p>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    <MessageSquare className="w-4 h-4 inline mr-1" />
+                    Nomor Invoice
+                  </label>
+                  <input
+                    type="text"
+                    value={documentData.subject || ''}
+                    onChange={(e) => handleFieldChange('subject', e.target.value)}
+                    placeholder="INV-2024-001"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">Contoh: INV-2024-001</p>
+                </div>
+              </>
+            )}
+
+            {template.type === 'report' && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    <User className="w-4 h-4 inline mr-1" />
+                    Ditujukan Kepada
+                  </label>
+                  <input
+                    type="text"
+                    value={documentData.recipient || ''}
+                    onChange={(e) => handleFieldChange('recipient', e.target.value)}
+                    placeholder="Direktur / Manager / Tim"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">Contoh: Direktur Utama</p>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    <MessageSquare className="w-4 h-4 inline mr-1" />
+                    Periode Laporan
+                  </label>
+                  <input
+                    type="text"
+                    value={documentData.subject || ''}
+                    onChange={(e) => handleFieldChange('subject', e.target.value)}
+                    placeholder="Januari 2024 / Q1 2024"
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">Contoh: Januari 2024 atau Q1 2024</p>
+                </div>
+              </>
+            )}
+
             {template.type === 'letter' && (
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">
